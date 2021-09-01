@@ -11,6 +11,30 @@ class _ProductAddState extends State<ProductAdd> {
   TextEditingController idController = TextEditingController();
   TextEditingController dsController = TextEditingController();
   TextEditingController prController = TextEditingController();
+  FocusNode idFocus = FocusNode();
+  FocusNode dsFocus = FocusNode();
+  FocusNode prFocus = FocusNode();
+  FocusNode svFocus = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    idController.dispose();
+    dsController.dispose();
+    prController.dispose();
+    idFocus.dispose();
+    dsFocus.dispose();
+    prFocus.dispose();
+    svFocus.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +59,18 @@ class _ProductAddState extends State<ProductAdd> {
     return Container(
       padding: EdgeInsets.only(top: 15),
       child: ElevatedButton.icon(
-        onPressed: () {},
+        focusNode: svFocus,
+        onPressed: () {
+          print(
+              'ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
+          idController.clear();
+          dsController.clear();
+          prController.clear();
+          print(
+              'ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
+          svFocus.unfocus();
+          FocusScope.of(context).requestFocus(idFocus);
+        },
         icon: Icon(Icons.save),
         label: Text('Save'),
       ),
@@ -48,7 +83,15 @@ class _ProductAddState extends State<ProductAdd> {
         padding: EdgeInsets.only(top: 15.0),
         width: MediaQuery.of(context).size.width - 100,
         child: TextFormField(
+          keyboardType: TextInputType.text,
+          autofocus: true,
           controller: idController,
+          focusNode: idFocus,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: (value) {
+            idFocus.unfocus();
+            FocusScope.of(context).requestFocus(dsFocus);
+          },
           decoration: InputDecoration(
               labelText: 'ID',
               labelStyle: TextStyle(fontSize: 25, color: Colors.green),
@@ -77,6 +120,12 @@ class _ProductAddState extends State<ProductAdd> {
         width: MediaQuery.of(context).size.width - 100,
         child: TextFormField(
           controller: dsController,
+          focusNode: dsFocus,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: (value) {
+            dsFocus.unfocus();
+            FocusScope.of(context).requestFocus(prFocus);
+          },
           decoration: InputDecoration(
               labelText: 'Desc.',
               labelStyle: TextStyle(fontSize: 25, color: Colors.green),
@@ -104,7 +153,14 @@ class _ProductAddState extends State<ProductAdd> {
         padding: EdgeInsets.only(top: 15.0),
         width: MediaQuery.of(context).size.width - 100,
         child: TextFormField(
+          keyboardType: TextInputType.number,
           controller: prController,
+          focusNode: prFocus,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: (value) {
+            prFocus.unfocus();
+            FocusScope.of(context).requestFocus(svFocus);
+          },
           decoration: InputDecoration(
               labelText: 'Price',
               labelStyle: TextStyle(fontSize: 25, color: Colors.green),
