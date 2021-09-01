@@ -32,10 +32,13 @@ class _ProductAddState extends State<ProductAdd> {
   }
 
   Widget btnSave() {
-    return ElevatedButton.icon(
-      onPressed: () {},
-      icon: Icon(Icons.save),
-      label: Text('Save'),
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      child: ElevatedButton.icon(
+        onPressed: () {},
+        icon: Icon(Icons.save),
+        label: Text('Save'),
+      ),
     );
   }
 
