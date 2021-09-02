@@ -23,7 +23,9 @@ class _ProductListState extends State<ProductList> {
 
   Future<Null> readSQL() async {
     var object = await SQLHelper().readDB();
-    productModels = object;
+    setState(() {
+      productModels = object;
+    });
   }
 
   @override

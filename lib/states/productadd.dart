@@ -75,6 +75,7 @@ class _ProductAddState extends State<ProductAdd> {
             print('Step 2 Insert Success');
           });
 
+          Navigator.pop(context);
           print(
               'Step 3 ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
 
