@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mjeetrn33/states/productadd.dart';
+import 'package:mjeetrn33/states/productlist.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ProductAdd(),
+      home: ProductList(),
     );
   }
 }
