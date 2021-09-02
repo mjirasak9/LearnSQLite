@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mjeetrn33/models/productmodel.dart';
+import 'package:mjeetrn33/utilitys/sqllite.dart';
 
 class ProductAdd extends StatefulWidget {
   const ProductAdd({Key? key}) : super(key: key);
@@ -60,14 +62,27 @@ class _ProductAddState extends State<ProductAdd> {
       padding: EdgeInsets.only(top: 15),
       child: ElevatedButton.icon(
         focusNode: svFocus,
-        onPressed: () {
+        onPressed: () async {
+          Map<String, dynamic> map = Map();
+          map['productID'] = idController.text;
+          map['productDS'] = dsController.text;
+          map['productPR'] = int.parse(prController.text);
+          print('Step 1 map => ${map}');
+
+          ProductModel productModel = ProductModel.fromJson(map);
+
+          await SQLHelper().insertDB(productModel).then((value) {
+            print('Step 2 Insert Success');
+          });
+
           print(
-              'ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
+              'Step 3 ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
+
           idController.clear();
           dsController.clear();
           prController.clear();
           print(
-              'ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
+              'Step 4 ID => ${idController.text} DS => ${dsController.text} PR = ${prController.text}');
           svFocus.unfocus();
           FocusScope.of(context).requestFocus(idFocus);
         },
